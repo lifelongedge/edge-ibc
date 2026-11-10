@@ -161,9 +161,20 @@ public class DefaultLoginManager extends LoginManager {
         }
     }
 
+    private static volatile String commandPassword;
+
     private static String getTWSPasswordFromSettings() {
         String password = Settings.settings().getString("IbPassword", "");
-        return password;
+        if (password.length() != 0) return password;
+        // edge-ibc: no password in the file, ask the IbPasswordCommand helper (once per process)
+        String command = Settings.settings().getString("IbPasswordCommand", "");
+        if (command.length() == 0) return "";
+        if (commandPassword == null) {
+            String p = PasswordCommand.run(command);
+            if (p.length() != 0) commandPassword = p;
+            return p;
+        }
+        return commandPassword;
     }
 
     private static String getTWSUserNameFromSettings() {

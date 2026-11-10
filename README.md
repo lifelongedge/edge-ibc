@@ -1,3 +1,23 @@
+## edge-ibc: the lifelongedge fork
+
+This is a fork of [IbcAlpha/IBC](https://github.com/IbcAlpha/IBC) at 3.24.2, kept by lifelongedge
+because the upstream project was retired on 1 September 2026 (notice below). Edge S2 uses IBC to log
+the customer's IB Gateway in on their own PC; this fork carries only what that needs, under the same
+GPL-3 licence. Releases are tagged `<upstream version>-le.<n>` and published on this repository's
+[releases page](https://github.com/lifelongedge/edge-ibc/releases), with the same zip layout as upstream.
+
+Changes from upstream 3.24.2 (see `edge/CHANGES.md`):
+
+- **`IbPasswordCommand`** (config.ini): a command that prints the password, used when `IbPassword`
+  is empty, so the password need not be stored in the configuration file.
+- **Password fields are never collected into the log** (`SwingUtils.getTexts` skips `JPasswordField`;
+  the same fix as [zalkabsi/IBC2.0](https://github.com/zalkabsi/IBC2.0) `340ba54`).
+
+Build: `edge/build.sh <dir holding the Gateway's jars>` (JDK 17) writes `dist/IBCWin-<ver>.zip` and
+`dist/IBCLinux-<ver>.zip`.
+
+---
+
 ## PROJECT RETIREMENT
 
 >**This project has been retired, as of 1 September 2026. By 'retired', I mean that
